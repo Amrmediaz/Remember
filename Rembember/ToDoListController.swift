@@ -9,8 +9,13 @@
 import UIKit
 
 class ToDoListController: UITableViewController {
-let elements = ["eggs","chease","mango"]
+    var elements = ["eggs","chease","mango"]
+    let userDefault = UserDefaults.standard
+
     override func viewDidLoad() {
+        // add DataPresitance
+        if userDefault.array(forKey: "array") != nil {
+            elements = userDefault.array(forKey: "array") as! [String] }
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
@@ -34,6 +39,22 @@ let elements = ["eggs","chease","mango"]
              tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    //MARK - Add new items
+    @IBAction func addNewItems(_ sender: UIBarButtonItem) {
+        var textFeleld = UITextField()
+        let alert = UIAlertController(title: "New Item", message: "Add new Item to task list", preferredStyle: .alert)
+        alert.addTextField {(alertTextField) in alertTextField.placeholder = "Add new Item"
+        textFeleld = alertTextField
+        }
+        let action=UIAlertAction(title: "Add", style:.default) { (action) in
+           self.elements.append(textFeleld.text!)
+            self.userDefault.set(self.elements, forKey: "array")
+            self.tableView.reloadData()
+            //
+        }
+        alert.addAction(action)
+        present(alert,animated: true , completion: nil)
     }
 }
 
