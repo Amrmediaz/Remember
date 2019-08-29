@@ -8,16 +8,18 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 class ToDoListController: UITableViewController  {
-    var selectedCatogery : Catogery? {
-        didSet {
-            load()
+    let realm = try! Realm()
+  
+    var cateagorySelected : Cateagory? {
+        didSet{
+          load()
         }
     }
-  var elements = [Item]()
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    let userDefault = UserDefaults.standard
-    let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    var elements : Results<Item>?
+    var item = Item()
+ 
 
     override func viewDidLoad() {
         // add DataPresitance
@@ -25,36 +27,50 @@ class ToDoListController: UITableViewController  {
         super.viewDidLoad()
        // print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
 
-      //  load()
+       load()
         // Do any additional setup after loading the view.
     }
     //add elements to cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
-        cell.textLabel?.text = elements[indexPath.row].itemName
-        cell.accessoryType = elements[indexPath.row].itemIsChecked ? .checkmark : .none
+        
+      if  let item = elements?[indexPath.row] {
+            cell.textLabel?.text = item.itemName
+            cell.accessoryType = item.itemIsChecked ? .checkmark : .none
+            
+      } else {
+        cell.textLabel?.text = "no items"
+        cell.accessoryType = .none
+        
+        }
+      
 
         return cell
     }
    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return elements.count
+        return elements?.count ?? 1
     }
 
     //selected row method
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
-        let item = elements[indexPath.row].itemIsChecked
+        let item = elements?[indexPath.row].itemIsChecked ?? false
         let cell =  tableView.cellForRow(at: indexPath)
         
         cell?.accessoryType = item ? .none : .checkmark
       
-        
-      // elements[indexPath.row].itemIsChecked = !item
-     elements[indexPath.row].setValue( !item, forKey: "itemIsChecked")
+        if let currentItem = elements?[indexPath.row] {
+            do{
+            try  realm.write {
+                currentItem.itemIsChecked =  !currentItem.itemIsChecked
+                // delete realm.delete(item)
+                }}catch{}
+        }
+     // elements[indexPath.row].itemIsChecked = !item
 
         tableView.deselectRow(at: indexPath, animated: true)
-        saveItem()
+//saveItem()
     }
     //MARK - Add new items
     @IBAction func addNewItems(_ sender: UIBarButtonItem) {
@@ -72,85 +88,61 @@ class ToDoListController: UITableViewController  {
         let action=UIAlertAction(title: "Add", style:.default) { (action) in
          // let itennewb=Item()
 
-          
-            let item = Item(context : self.context)
-            item.itemName=textFeleld.text!
-            item.itemIsChecked=false
-            item.parentCatogery = self.selectedCatogery
-            self.elements.append(item)
-self.saveItem()
+         
+            if let currecntCatagory = self.cateagorySelected {
+                do {
+                    try self.realm.write {
+                        let item = Item()
+                        item.itemName = textFeleld.text!
+                        
+                        
+                        currecntCatagory.items.append(item)
+                        
+                    }}catch{}
+            }
+            
+            self.tableView.reloadData()
+            self.load()
             //
         }
         alert.addAction(action)
         present(alert,animated: true , completion: nil)
     }
-    func saveItem() {
+    func saveItem(itemo : Item) {
        // let encoders = PropertyListEncoder()
-        do{
-            try self.context.save()
-
-         //   let data = try encoders.encode(self.elements)
-          //  try data.write(to: self.filePath!)
-        }catch{}
-        self.tableView.reloadData()
+    
     }
     //Mark: - load data from Coretable
     //what after = is default parameter
-    func load(with request : NSFetchRequest<Item> = Item.fetchRequest() , predicate : NSPredicate? = nil){
-        let predicable = NSPredicate(format: "parentCatogery.name MATCHES %@", selectedCatogery!.name!)
-        if let additionallPredi = predicate {
-           request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicable,predicate!])
-     
-
-        } else {
-              request.predicate = predicable
-        }
-    
-        do{
-    elements = try self.context.fetch(request)
-        }catch{
-            
-        }
-        tableView.reloadData()
-
+    func load(){
         
-    }
+        elements = cateagorySelected?.items.sorted(byKeyPath: "itemName", ascending: true)
+    
+tableView.reloadData()
+//
+//
+//    }
     //delete from table and array
-    func delete(){
-        context.delete(elements[2])
-        elements.remove(at: 2)
-    }
+//    func delete(){
+//        context.delete(elements[2])
+//        elements.remove(at: 2)
+//    }
     //MARK: - Search bar extenstion
   
    
-}
+    }}
 
 extension ToDoListController : UISearchBarDelegate {
 
    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
-       
         if searchBar.text?.count == 0 {
-            DispatchQueue.main.async{
-                searchBar.resignFirstResponder()
-                self.load(with : request )
-
-                
-            }
-        }else{
-              var  predicateable = NSPredicate(format: "itemName CONTAINS[cd] %@" , searchBar.text!)
-            predicateable = NSPredicate(format: "itemName CONTAINS[cd] %@" , searchBar.text!)
-            request.sortDescriptors = [NSSortDescriptor(key: "itemName", ascending: true)]
-            do{
-                elements = try self.context.fetch(request)
-            }catch{
-                
-            }
-            load(with : request , predicate: predicateable)
-
-            
+            load()
         }
-    }
+        else {
+elements = elements?.filter("itemName CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "itemName", ascending: true)
+
+        }}
+//    }
     
 }

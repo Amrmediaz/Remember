@@ -8,28 +8,28 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 class CatagoryTableViewController: UITableViewController {
-var catogeryArray = [Catogery]()
-       let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var catogeryArray : Results<Cateagory>?
+    let catogery = Cateagory()
+let realm = try! Realm()
     override func viewDidLoad() {
         super.viewDidLoad()
-load()
-     
+   load()
     }
 
     // MARK: - Table view data source
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
           let cell = tableView.dequeueReusableCell(withIdentifier: "CatagoryCell", for: indexPath)
-        cell.textLabel?.text = catogeryArray[indexPath.row].name
+        cell.textLabel?.text = catogeryArray?[indexPath.row].name ?? "hi"
         return cell
     }
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return catogeryArray.count
-    }
+        return catogeryArray?.count ?? 1   }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //
         //performSegue(withIdentifier: "goToItems", sender: self)
@@ -38,19 +38,17 @@ load()
    
     @IBAction func addCatogery(_ sender: UIBarButtonItem) {
         var Text = UITextField()
-        var catogery = Catogery()
+       // var catogery = Cateagory()
         let alert = UIAlertController(title: "New Catogery", message: "", preferredStyle: .alert)
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Enter catogery name"
             Text = alertTextField
         }
         let actionAlert = UIAlertAction(title: "Add", style: .default) { (action) in
-            let catogery = Catogery(context : self.context)
-         catogery.name = Text.text
+       self.catogery.name = Text.text!
 
-           self.catogeryArray.append(catogery)
             self.saveItem()
-            self.load()
+          //  self.load()
             //add alert
         }
       
@@ -60,18 +58,19 @@ load()
     //MARK: - go to items of the catogery
    
     //MARK : - Load data from core
-    func load(with request : NSFetchRequest<Catogery> = Catogery.fetchRequest()){
-        do {
-       catogeryArray = try self.context.fetch(request)
-        }catch{}
-        tableView.reloadData()
-    }
+    func load(){
+
+catogeryArray = realm.objects(Cateagory.self)
+        tableView.reloadData()}
+//    }
     
     //MARK: - Save data to core
     func saveItem() {
-        // let encoders = PropertyListEncoder()
         do{
-            try self.context.save()
+       try realm.write {
+            realm.add(catogery)
+            }}catch {}
+        do{
             
             //   let data = try encoders.encode(self.elements)
             //  try data.write(to: self.filePath!)
@@ -82,7 +81,7 @@ load()
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var destinationController = segue.destination as! ToDoListController
         if let index = tableView.indexPathForSelectedRow {
-            destinationController.selectedCatogery = catogeryArray[index.row]
+            destinationController.cateagorySelected = catogeryArray![index.row]
         }
     }
 }

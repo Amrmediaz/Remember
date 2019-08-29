@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,11 +12,14 @@
 		8423F7432315459D0028486D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8423F7412315459D0028486D /* Main.storyboard */; };
 		8423F7452315459E0028486D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8423F7442315459E0028486D /* Assets.xcassets */; };
 		8423F7482315459E0028486D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8423F7462315459E0028486D /* LaunchScreen.storyboard */; };
-		8423F7542315C5A30028486D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8423F7522315C5A30028486D /* DataModel.xcdatamodeld */; };
 		8454616A2316A521008E7E81 /* CatagoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845461692316A521008E7E81 /* CatagoryTableViewController.swift */; };
+		84F26EB723171709008BFEDF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F26EB623171709008BFEDF /* Item.swift */; };
+		84F26EB92317184F008BFEDF /* Cateagory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F26EB82317184F008BFEDF /* Cateagory.swift */; };
+		A809C438555DF5CFAEC55E2C /* Pods_Rembember.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD4DD7DF6ADDAC5954B06836 /* Pods_Rembember.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7273FFE7BEDA2BEC00BC0F3C /* Pods-Rembember.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rembember.release.xcconfig"; path = "Target Support Files/Pods-Rembember/Pods-Rembember.release.xcconfig"; sourceTree = "<group>"; };
 		8423F73A2315459D0028486D /* Rembember.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rembember.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8423F73D2315459D0028486D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8423F73F2315459D0028486D /* ToDoListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
@@ -24,8 +27,11 @@
 		8423F7442315459E0028486D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8423F7472315459E0028486D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8423F7492315459E0028486D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8423F7532315C5A30028486D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		845461692316A521008E7E81 /* CatagoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatagoryTableViewController.swift; sourceTree = "<group>"; };
+		84F26EB623171709008BFEDF /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		84F26EB82317184F008BFEDF /* Cateagory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cateagory.swift; sourceTree = "<group>"; };
+		A924B91AB9AC42B1A13642D3 /* Pods-Rembember.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rembember.debug.xcconfig"; path = "Target Support Files/Pods-Rembember/Pods-Rembember.debug.xcconfig"; sourceTree = "<group>"; };
+		CD4DD7DF6ADDAC5954B06836 /* Pods_Rembember.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rembember.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,12 +39,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A809C438555DF5CFAEC55E2C /* Pods_Rembember.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		183F65F30B3C8920B8E134BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD4DD7DF6ADDAC5954B06836 /* Pods_Rembember.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7621F266719663785E3CC729 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A924B91AB9AC42B1A13642D3 /* Pods-Rembember.debug.xcconfig */,
+				7273FFE7BEDA2BEC00BC0F3C /* Pods-Rembember.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8423F7312315459C0028486D = {
 			isa = PBXGroup;
 			children = (
@@ -46,6 +70,8 @@
 				8423F74F2315732F0028486D /* Model */,
 				8423F73C2315459D0028486D /* Rembember */,
 				8423F73B2315459D0028486D /* Products */,
+				7621F266719663785E3CC729 /* Pods */,
+				183F65F30B3C8920B8E134BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,7 +97,8 @@
 		8423F74F2315732F0028486D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8423F7522315C5A30028486D /* DataModel.xcdatamodeld */,
+				84F26EB623171709008BFEDF /* Item.swift */,
+				84F26EB82317184F008BFEDF /* Cateagory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -93,9 +120,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8423F74C2315459E0028486D /* Build configuration list for PBXNativeTarget "Rembember" */;
 			buildPhases = (
+				FE02C3B529CB92D997355C48 /* [CP] Check Pods Manifest.lock */,
 				8423F7362315459C0028486D /* Sources */,
 				8423F7372315459C0028486D /* Frameworks */,
 				8423F7382315459C0028486D /* Resources */,
+				784A8E444121B624A708174D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,15 +181,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		784A8E444121B624A708174D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rembember/Pods-Rembember-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rembember/Pods-Rembember-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rembember/Pods-Rembember-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE02C3B529CB92D997355C48 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rembember-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8423F7362315459C0028486D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8423F7402315459D0028486D /* ToDoListController.swift in Sources */,
-				8423F7542315C5A30028486D /* DataModel.xcdatamodeld in Sources */,
 				8423F73E2315459D0028486D /* AppDelegate.swift in Sources */,
+				84F26EB723171709008BFEDF /* Item.swift in Sources */,
 				8454616A2316A521008E7E81 /* CatagoryTableViewController.swift in Sources */,
+				84F26EB92317184F008BFEDF /* Cateagory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +376,7 @@
 		};
 		8423F74D2315459E0028486D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A924B91AB9AC42B1A13642D3 /* Pods-Rembember.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -321,6 +394,7 @@
 		};
 		8423F74E2315459E0028486D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7273FFE7BEDA2BEC00BC0F3C /* Pods-Rembember.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -358,19 +432,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		8423F7522315C5A30028486D /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				8423F7532315C5A30028486D /* DataModel.xcdatamodel */,
-			);
-			currentVersion = 8423F7532315C5A30028486D /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 8423F7322315459C0028486D /* Project object */;
 }
